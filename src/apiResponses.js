@@ -1,11 +1,12 @@
-let users = {};
+const users = {};
 
 const getUsers = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'application/json' });
 
   if (request.method === 'GET') {
     const obj = {
-      users: users
+      users,
+      id: 'Success',
     };
 
     response.write(JSON.stringify(obj));
@@ -14,52 +15,39 @@ const getUsers = (request, response) => {
   response.end();
 };
 
-const addUser = (request, response) => {
-  response.writeHead(200, { 'Content-Type': 'app;ocation/json' });
+const addUser = (request, response, data) => {
+  response.writeHead(200, { 'Content-Type': 'application/json' });
 
-  const body = [];
-  
-  request.on('error', (err) => {
-    console.dir(err);
-    response.statusCode = 400;
-    response.end();
-  });
-  
-  request.on('data', (chunk) => {
-    body.push(chunk);
-  });
-  
-  let data = '';
-  
-  request.on('end', () => {
-    const bodyString = Buffer.concat(body).toString();
-    data = query.parse(bodyString);
-  });
-  
+  console.dir(data);
+
   const responseJSON = {
     message: 'All fields are required',
   };
-  
-  if(!data.name || !data.age) {
-    responseJSON.id = 'missingParams'
-    responseJSON.statusCode = 400;
-    response.end()
+
+  if (!data.name || !data.age) {
+    responseJSON.id = 'missingParams';
+    response.statusCode = 400;
+  } else {
+    // add user here
   }
 
-  response.write(JSON.stringify(obj));
+  response.write(JSON.stringify(responseJSON));
 
   response.end();
 };
 
-const notFound = (request, response, acceptType) => {
+const notFound = (request, response) => {
   response.writeHead(404, { 'Content-Type': 'application/json' });
 
-  const obj = {
-    message: 'The page you are looking for was not found',
-    id: 'Resource Not Found',
-  };
+  if (request.method === 'GET') {
+    const obj = {
+      message: 'The page you are looking for was not found',
+      id: 'notFound',
+    };
 
-  response.write(JSON.stringify(obj));
+    response.write(JSON.stringify(obj));
+  }
+
   response.end();
 };
 

@@ -9,7 +9,7 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const onRequest = (request, response) => {
   console.log(request.url);
   const parsedUrl = url.parse(request.url);
-  const parameters = query.parse(parsedUrl.query);
+  const body = [];
 
   switch (parsedUrl.pathname) {
     case '/':
@@ -25,7 +25,22 @@ const onRequest = (request, response) => {
       apiHandler.notFound(request, response);
       break;
     case '/addUser':
-      apiHandler.addUser(request, response);
+      request.on('error', (err) => {
+        console.dir(err);
+        response.statusCode = 400;
+        response.end();
+      });
+
+      request.on('data', (chunk) => {
+        body.push(chunk);
+      });
+
+      request.on('end', () => {
+        const bodyString = Buffer.concat(body).toString();
+        const bodyParams = query.parse(bodyString);
+        apiHandler.addUser(request, response, bodyParams);
+      });
+
       break;
     default:
       apiHandler.notFound(request, response);

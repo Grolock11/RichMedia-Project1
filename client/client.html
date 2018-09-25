@@ -10,52 +10,64 @@
     const handleResponse = (xhr) => {
       console.log(xhr)
       
-			const type = xhr.getResponseHeader('content-type');
-			const content = document.querySelector('#content');
+      const type = xhr.getResponseHeader('content-type');
+      const content = document.querySelector('#content');
+
+      const h1 = document.createElement('h1');
+      const p = document.createElement('p');
 			
-			const h1 = document.createElement('h1');
-			const p = document.createElement('p');
-			
-      if(xhr.respnose) {
-      
-      const obj = JSON.parse(xhr.response);
+      if(xhr.response) {
+        const obj = JSON.parse(xhr.response);
         h1.textContent = obj.id;
-        p.textContent = obj.message;
+        p.textContent = obj.message || JSON.stringify(obj.users);
       }
+      else if(xhr.status === 200) {
+        h1.textContent = 'Success';
+      }
+      else if(xhr.status === 404) {
+        h1.textContent = 'notFound';
+      }
+      
+      content.innerHTML = '';
+      content.appendChild(h1);
+      content.appendChild(p);
+    };
 		
-			content.innerHTML = '';
-			content.appendChild(h1);
-			content.appendChild(p);
-		};
-		
-		const sendGet = (e) => {
-			const xhr = new XMLHttpRequest();
-			
-			const type = document.querySelector('#methodSelect').value;
-			const page = document.querySelector('#urlField').value;
-			
-			xhr.open(type, page);
-			xhr.onload = () => handleResponse(xhr);		
-			xhr.send();
+    const sendGet = (e) => {
+      const xhr = new XMLHttpRequest();
+
+      const type = document.querySelector('#methodSelect').value;
+      const page = document.querySelector('#urlField').value;
+
+      xhr.open(type, page);
+      xhr.onload = () => handleResponse(xhr);		
+      xhr.send();
       
       e.preventDefault();
-      return formData();
-		};
+      return false;
+    };
 
     const sendPost = (e) => {
-      const name = document.querySelector('#nameField').value;
-			const age = document.querySelector('#ageField').value;
+      const xhr = new XMLHttpRequest();
       
+      const name = document.querySelector('#nameField').value;
+      const age = document.querySelector('#ageField').value;
+
       xhr.open('POST', '/addUser');
-			xhr.onload = () => handleResponse(xhr);		
-			xhr.send();
+      xhr.onload = () => handleResponse(xhr);		
+      xhr.send();
+      
+      e.preventDefault();
+      return false;
     }
 
-		const setup = () => {
-			const sendButton = document.querySelector('#userFormSend');
-		
-			sendButton.addEventListener('click', sendGet)
-		};
+    const setup = () => {
+      const sendButton = document.querySelector('#userFormSend');
+      const postSendButton = document.querySelector('#nameFormSend');
+
+      sendButton.addEventListener('click', sendGet)
+      postSendButton.addEventListener('click', sendPost)
+    };
 
 		window.onload = setup;
 
