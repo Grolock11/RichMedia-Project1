@@ -1,0 +1,30 @@
+{
+  "name": "http-api-assignment",
+  "engine": {
+    "node": "8.11.4",
+    "npm": "5.6.0"
+  },
+  "version": "1.0.0",
+  "description": "http api assignment",
+  "main": "./src/server.js",
+  "scripts": {
+    "test": "echo \"Tests complete\"",
+    "pretest": "eslint ./src --fix",
+    "start": "node ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IGM-RichMedia-at-RIT/http-api-assignment.git"
+  },
+  "author": "Josh Martin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IGM-RichMedia-at-RIT/http-api-assignment/issues"
+  },
+  "homepage": "https://github.com/IGM-RichMedia-at-RIT/http-api-assignment#readme",
+  "devDependencies": {
+    "eslint": "^5.5.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}

@@ -7,6 +7,58 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script type="text/babel">
 
+    const handleResponse = (xhr) => {
+      console.log(xhr)
+      
+			const type = xhr.getResponseHeader('content-type');
+			const content = document.querySelector('#content');
+			
+			const h1 = document.createElement('h1');
+			const p = document.createElement('p');
+			
+      if(xhr.respnose) {
+      
+      const obj = JSON.parse(xhr.response);
+        h1.textContent = obj.id;
+        p.textContent = obj.message;
+      }
+		
+			content.innerHTML = '';
+			content.appendChild(h1);
+			content.appendChild(p);
+		};
+		
+		const sendGet = (e) => {
+			const xhr = new XMLHttpRequest();
+			
+			const type = document.querySelector('#methodSelect').value;
+			const page = document.querySelector('#urlField').value;
+			
+			xhr.open(type, page);
+			xhr.onload = () => handleResponse(xhr);		
+			xhr.send();
+      
+      e.preventDefault();
+      return formData();
+		};
+
+    const sendPost = (e) => {
+      const name = document.querySelector('#nameField').value;
+			const age = document.querySelector('#ageField').value;
+      
+      xhr.open('POST', '/addUser');
+			xhr.onload = () => handleResponse(xhr);		
+			xhr.send();
+    }
+
+		const setup = () => {
+			const sendButton = document.querySelector('#userFormSend');
+		
+			sendButton.addEventListener('click', sendGet)
+		};
+
+		window.onload = setup;
+
   </script>
 </head>
 <body>
@@ -17,7 +69,7 @@
       <input id="nameField" type="text" name="name" />
       <label for="age">Age: </label>
       <input id="ageField" type="number" name="age" min="0" max="100" step="1"/>
-      <input type="submit" value="Add User" />
+      <input id="nameFormSend" type="submit" value="Add User" />
     </form>
     <form id="userForm" action="/getUsers" method="get">
       <select id='urlField'>
@@ -28,7 +80,7 @@
         <option value="get">GET</option>
         <option value="head">HEAD</option>
       </select>
-      <input type="submit" value="Get User" />
+      <input id="userFormSend" type="submit" value="Get User" />
     </form>
   </section>
   <section id="content">
