@@ -16,10 +16,6 @@ const getUsers = (request, response) => {
 };
 
 const addUser = (request, response, data) => {
-  response.writeHead(200, { 'Content-Type': 'application/json' });
-
-  console.dir(data);
-
   const responseJSON = {
     message: 'All fields are required',
   };
@@ -28,10 +24,23 @@ const addUser = (request, response, data) => {
     responseJSON.id = 'missingParams';
     response.statusCode = 400;
   } else {
-    // add user here
+    response.stratusCode = 201;
+    responseJSON.id = 'Created';
+    responseJSON.message = 'Created Successfully';
+
+    if (users[data.name]) {
+      response.statusCode = 204;
+    }
+
+    users[data.name] = {
+      name: data.name,
+      age: data.age,
+    };
   }
 
-  response.write(JSON.stringify(responseJSON));
+  if (response.statsCode !== 204) {
+    response.write(JSON.stringify(responseJSON));
+  }
 
   response.end();
 };

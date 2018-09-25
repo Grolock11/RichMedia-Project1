@@ -18,11 +18,15 @@
 			
       if(xhr.response) {
         const obj = JSON.parse(xhr.response);
+        
         h1.textContent = obj.id;
         p.textContent = obj.message || JSON.stringify(obj.users);
       }
       else if(xhr.status === 200) {
         h1.textContent = 'Success';
+      }
+      else if(xhr.status === 204) {
+        h1.textContent = 'Updated (No Content)';
       }
       else if(xhr.status === 404) {
         h1.textContent = 'notFound';
@@ -52,10 +56,14 @@
       
       const name = document.querySelector('#nameField').value;
       const age = document.querySelector('#ageField').value;
+      
+      
+      const formData = `name=${name}&age=${age}`
 
       xhr.open('POST', '/addUser');
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       xhr.onload = () => handleResponse(xhr);		
-      xhr.send();
+      xhr.send(formData);
       
       e.preventDefault();
       return false;
