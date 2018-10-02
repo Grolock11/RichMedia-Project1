@@ -19,7 +19,7 @@ const addUser = (request, response, data) => {
   const responseJSON = {
     message: 'All fields are required',
   };
-  
+
   console.log(data);
 
   if (!data.character || !data.realm) {
@@ -34,12 +34,12 @@ const addUser = (request, response, data) => {
       response.statusCode = 204;
     }
 
-    //store the character using latModified as a pseudo id number
+    // store the character using latModified as a pseudo id number
     characters[data.lastModified] = {
       character: data.character,
       realm: data.realm,
       mounts: data.mounts,
-      first: data.first
+      first: data.first,
     };
   }
 

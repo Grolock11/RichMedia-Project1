@@ -10,7 +10,7 @@ const onRequest = (request, response) => {
   console.log(request.url);
   const parsedUrl = url.parse(request.url);
   const body = [];
-  //there are some changes being made you shoud restart
+  // there are some changes being made you shoud restart
 
   switch (parsedUrl.pathname) {
     case '/':
@@ -22,7 +22,7 @@ const onRequest = (request, response) => {
     case '/bundle.js':
       htmlHandler.getJS(request, response);
       break;
-    case '/getData': 
+    case '/getData':
       apiHandler.getUsers(request, response);
       break;
     case '/notReal':

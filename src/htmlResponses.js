@@ -25,4 +25,4 @@ const getJS = (request, response) => {
 
 module.exports.getIndex = getIndex;
 module.exports.getCss = getCss;
-module.exports.getJS = getJS; 
+module.exports.getJS = getJS;
