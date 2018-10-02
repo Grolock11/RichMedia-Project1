@@ -10,7 +10,10 @@
   "scripts": {
     "test": "echo \"Tests complete\"",
     "pretest": "eslint ./src --fix",
-    "start": "node ./src/server.js"
+    "start": "node ./src/server.js",
+    "watch": "babel --watch ./client --out-file ./hosted/bundle.js",
+    "build": "babel ./client --out-file ./hosted/bundle.js",
+    "nodemon": "nodemon --watch ./hosted ./src/server.js"
   },
   "repository": {
     "type": "git",
@@ -23,8 +26,11 @@
   },
   "homepage": "https://github.com/IGM-RichMedia-at-RIT/http-api-assignment#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "eslint": "^5.5.0",
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.14.0"
+    "eslint-plugin-import": "^2.14.0",
+    "nodemon": "^1.18.4"
   }
 }

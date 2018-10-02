@@ -1,11 +1,11 @@
-const users = {};
+const characters = {};
 
 const getUsers = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'application/json' });
 
   if (request.method === 'GET') {
     const obj = {
-      users,
+      characters,
       id: 'Success',
     };
 
@@ -19,8 +19,10 @@ const addUser = (request, response, data) => {
   const responseJSON = {
     message: 'All fields are required',
   };
+  
+  console.log(data);
 
-  if (!data.name || !data.age) {
+  if (!data.character || !data.realm) {
     responseJSON.id = 'missingParams';
     response.statusCode = 400;
   } else {
@@ -28,17 +30,20 @@ const addUser = (request, response, data) => {
     responseJSON.id = 'Created';
     responseJSON.message = 'Created Successfully';
 
-    if (users[data.name]) {
+    if (characters[data.name]) {
       response.statusCode = 204;
     }
 
-    users[data.name] = {
-      name: data.name,
-      age: data.age,
+    //store the character using latModified as a pseudo id number
+    characters[data.lastModified] = {
+      character: data.character,
+      realm: data.realm,
+      mounts: data.mounts,
+      first: data.first
     };
   }
 
-  if (response.statsCode !== 204) {
+  if (response.statusCode !== 204) {
     response.write(JSON.stringify(responseJSON));
   }
 
