@@ -9,6 +9,7 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const onRequest = (request, response) => {
   console.log(request.url);
   const parsedUrl = url.parse(request.url);
+  const queryParams = query.parse(parsedUrl.query);
   const body = [];
   // there are some changes being made you shoud restart
 
@@ -22,13 +23,13 @@ const onRequest = (request, response) => {
     case '/bundle.js':
       htmlHandler.getJS(request, response);
       break;
-    case '/getData':
-      apiHandler.getUsers(request, response);
+    case '/getTopData':
+      apiHandler.getTop(request, response);
       break;
-    case '/notReal':
-      apiHandler.notFound(request, response);
+    case '/getCharacterData':
+      apiHandler.getCharacter(request, response, queryParams);
       break;
-    case '/addUser':
+    case '/addCharacter':
       request.on('error', (err) => {
         console.dir(err);
         response.statusCode = 400;
@@ -42,12 +43,12 @@ const onRequest = (request, response) => {
       request.on('end', () => {
         const bodyString = Buffer.concat(body).toString();
         const bodyParams = query.parse(bodyString);
-        apiHandler.addUser(request, response, bodyParams);
+        apiHandler.addCharacter(request, response, bodyParams);
       });
 
       break;
     default:
-      apiHandler.notFound(request, response);
+      htmlHandler.notFound(request, response);
       break;
   }
 };

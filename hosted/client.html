@@ -6,23 +6,41 @@
   <script src="bundle.js"></script>
 </head>
 <body>
-  <section id="top">
-    <form id="characterForm" action="/saveData" method="post">
-      <label for="character">Character</label>
-      <input id="characterField" type="text" name="character"/>
-      <label for="realm">Realm</label>
-      <input id="realmField" type="text" name="realm" />
-      <input id="nameFormSend" type="submit" value="Post Data" />
-    </form>
-    <form id="dataTypeForm" action="/getData" method="get">
-      <select id='typeField'>
-        <option value='mounts'>Mounts</option>
-        <option value='progression'>Progression</option>
-      </select>
-      <input id="userFormSend" type="submit" value="Get Data" />
-    </form>
-  </section>
-  <section id="content">
-  </section>
+  <div id="main-container">
+    <section id="form">
+      <form id="characterForm" action="/getData" method="post">
+        <div class=formDiv>
+          <label for="character">Character:</label>
+          <input id="characterField" type="text" name="character"/>
+        </div>
+        <div class=formDiv>
+          <label for="realm">Realm:</label>
+          <input id="realmField" type="text" name="realm" />
+        </div>
+        <div class=buttonDiv>
+          <input id="userFormSend" type="submit" value="Get Blizzard Data" />
+          <input id="nameFormSend" type="submit" value="Save Data to Server" disabled/>
+        </div>
+      </form>
+    </section>
+    <section id="form2">
+      <form id="serverForm" action="/getData" method="get">
+        <div class='longFormDiv'>
+          <label for="characterServer">Find Character on Server:</label>
+          <input id="characterServerField" type="text" name="character"/>
+        </div>
+        <input id="serverDataGet" type="submit" value="Load Character Data" />
+      </form>
+      <input id="serverTopGet" type="submit" value="Load Top Character Data" disabled/>
+    </section>
+    <section id="content">
+      <div id="contentTitle">
+      </div>
+      <div id="bosses">
+      </div>
+      <div id="rankings">
+      </div>
+    </section>
+  </div>
 </body>
 </html>

@@ -5,9 +5,60 @@ html, body {
   padding: 0;
 }
 
-#top {
+#main-container {
+  display: grid;
+  grid-template-areas: 
+    "form  content ."
+    "form2 content ."
+    ".     content .";
+  grid-column-gap: 10px;
+  grid-template-columns: 22% 73% 5%;
+  grid-template-rows: 22% 22% 56%;
+}
+
+#form {
+  margin: 15px;
+  grid-area: form;
   text-align: center;
-  margin: 0 auto;
+}
+
+#form2 {
+  margin: 15px;
+  text-align: center;
+  grid-area: form2;
+  display: grid;
+  grid-template-rows: 70% 60%;
+  grid-row-gap: 5px;
+}
+
+#characterForm {
+  display: grid;
+  grid-template-rows: 35% 35% 30%;
+  grid-row-gap: 5px;
+}
+
+.formDiv {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-column-gap: 5px;
+}
+
+.longFormDiv {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-column-gap: 5px;
+}
+
+#serverForm {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  grid-row-gap: 5px;
+}
+
+.buttonDiv {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-column-gap: 5px;
 }
 
 #top h1 {
@@ -15,7 +66,35 @@ html, body {
 }
 
 #content {
-  margin-top: 100px;
+  grid-area: content;
+  margin-top: 25px;
   font-size: 2em;
   text-align: center;
+}
+
+#bosses {
+  font-size: 14px;
+    display: grid;
+    grid-template-areas:
+      ". . . ."
+      ". . . .";
+}
+
+#bosses p {
+  display: block;
+}
+
+.bossDiv {
+  border: 1px solid grey;
+}
+
+#notFound {
+  text-align: center;
+  font-size: 2em;
+}
+
+#rankings {
+  display: grid;
+  grid-template-rows: 100px 30px 30px 30px 30px 30px;
+  grid-row-gap: 5px;
 }
